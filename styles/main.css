@@ -23,6 +23,7 @@ body {
     justify-content: center;
     height: 600px;
     width: 600px;
+    background-image: url("../images/cartoon-seamless-shiny-blue-water-background-vector-8427523.jpg")
 }
 
 .grid div {
@@ -30,6 +31,7 @@ body {
     flex-grow: 1;
     height: 10%;
     width: 10%;
+    
 }
 
 h1 {
@@ -46,6 +48,32 @@ h1 {
 
 .grid div.player {
     background-image: url('../images/boy-scuba-diving-cartoon-colored-clipart-free-vector.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.grid div.lava {
+    background-image: url("../images/lava.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.grid div.beach {
+    background-image: url("../images/summer-background-sand-ocean-seaside-600nw-2153338015.webp");
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+.grid div.coral {
+    background-image: url("../images/png-transparent-sticker-wall-decal-anthozoa-child-coral-cartoon-people-flower-coral-thumbnail.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+.grid div.shark {
+    background-image: url("../images/shark.jpeg");
     background-repeat: no-repeat;
     background-size: contain;
     cursor: pointer;

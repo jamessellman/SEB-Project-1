@@ -13,9 +13,9 @@
 <!-- make nesscary styling in CSS most likely for grid 10x10 (done)-->
 <!-- create conts for cellCount, width and cells for the next function to create a grid (done)-->
 <!-- make a function with a loop that will push cells to the grid div (done)-->
-<!-- create a function to add player character -->
-<!-- create a function to remove player character -->
-<!-- create a function to handle key presses that will make player move and set boundarys -->
+<!-- create a function to add player character (done)-->
+<!-- create a function to remove player character (done)-->
+<!-- create a function to handle key presses that will make player move and set boundarys (done) -->
 <!-- add styling to grid to divide playable area with start and end zones -->
 <!-- add more styling to decide which rows will have moving hazards and death zones -->
 <!-- create function to add hazards(something like a car) -->
