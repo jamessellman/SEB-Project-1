@@ -10,9 +10,9 @@ const lavaPositions = [40, 41, 42, 45, 46, 48, 49];
 const beachPositions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 const coralPositions = [90, 91, 92, 93, 94, 95, 96, 97, 98, 99];
 //variables for movable objects
-let sharkRowOne = [89, 86, 83, 80];
-let sharkRowTwo = [60, 63, 66, 69];
-let sharkRowThree = [29, 26, 23, 20];
+let sharkRowOne = [86, 83, 80];
+let sharkRowTwo = [62, 65, 68];
+let sharkRowThree = [26, 23, 20];
 
 //function to create the grid(playing area)
 function createGrid() {
@@ -26,6 +26,9 @@ function createGrid() {
   addLava(lavaPositions);
   addBeach(beachPositions);
   addCoral(coralPositions);
+  addShark(sharkRowOne);
+  addShark(sharkRowTwo);
+  addShark(sharkRowThree);
 }
 
 createGrid();
@@ -55,13 +58,18 @@ function addCoral(coralPositions) {
   }
 }
 //function to add movable objects
-function addShark(sharkRowOne, sharkRowTwo, sharkRowThree) {
-  for (let i = 0; i < sharkRowOne.length; i++) {
-    cells[sharkRowOne[i]].classList.add("shark");
-    cells[sharkRowTwo[i]].classList.add("shark");
-    cells[sharkRowThree[i]].classList.add("shark");
+function addShark(sharkRow) {
+  for (let i = 0; i < sharkRow.length; i++) {
+    cells[sharkRow[i]].classList.add("shark");
   }
 }
+
+function removeShark(sharkRow) {
+  for (let i = 0; i < sharkRow.length; i++) {
+    cells[sharkRow[i]].classList.remove("shark");
+  }
+}
+// removeShark(sharkRowOne);
 //function to handle player or hazard entering the same cell
 function impact() {
   removePlayer(playerCurrentPosition);
@@ -72,13 +80,56 @@ function impact() {
 // create a function that allows sharks to move across page
 // will need to make a set interval that moves the shark every x seconds
 // to move across the page, will need to increment -- or ++ to move to adjacent box
-function moveSharkRowOne(sharkRowOne) {
+function moveSharkRowOne(interval) {
   sharkTimer = setInterval(() => {
-    let moveSharkOne = sharkRowOne.map((element) => element--);
-    addShark(moveSharkOne, sharkRowTwo, sharkRowThree);
-  }, 2000);
+    removeShark(sharkRowOne);
+    if (sharkRowOne.includes(88)) {
+      sharkRowOne = [86, 83, 80];
+    } else {
+      console.log(sharkRowOne);
+      sharkRowOne = sharkRowOne.map((element) => {
+        return (element += 1);
+      });
+    }
+
+    addShark(sharkRowOne);
+  }, interval);
 }
-moveSharkRowOne();
+moveSharkRowOne(2000);
+
+function moveSharkRowTwo(interval) {
+  sharkTimer = setInterval(() => {
+    removeShark(sharkRowTwo);
+    if (sharkRowTwo.includes(66)) {
+      sharkRowTwo = [62, 65, 68];
+    } else {
+      console.log(sharkRowTwo);
+      sharkRowTwo = sharkRowTwo.map((element) => {
+        return (element -= 1);
+      });
+    }
+
+    addShark(sharkRowTwo);
+  }, interval);
+}
+moveSharkRowTwo(1500);
+
+function moveSharkRowThree(interval) {
+  sharkTimer = setInterval(() => {
+    removeShark(sharkRowThree);
+    if (sharkRowThree.includes(28)) {
+      sharkRowThree = [26, 23, 20];
+    } else {
+      console.log(sharkRowThree);
+      sharkRowThree = sharkRowThree.map((element) => {
+        return (element += 1);
+      });
+    }
+
+    addShark(sharkRowThree);
+  }, interval);
+}
+moveSharkRowThree(1000);
 
 //function to map player movment with keystrokes and create boundary around grid
 function handleKeyDown(event) {

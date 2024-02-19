@@ -16,10 +16,10 @@
 <!-- create a function to add player character (done)-->
 <!-- create a function to remove player character (done)-->
 <!-- create a function to handle key presses that will make player move and set boundarys (done) -->
-<!-- add styling to grid to divide playable area with start and end zones -->
-<!-- add more styling to decide which rows will have moving hazards and death zones -->
-<!-- create function to add hazards(something like a car) -->
-<!-- create a function that will handle if player or hazard enter the same cell, to remove player -->
+<!-- add styling to grid to divide playable area with start and end zones (done) -->
+<!-- add more styling to decide which rows will have moving hazards and death zones (done) -->
+<!-- create function to add hazards(something like a car) (done) -->
+<!-- create a function that will handle if player or hazard enter the same cell, to remove player (done) -->
 <!-- hazards will move across boards using incriments and find a way to make this happen automatically on a timer , ie every 2 seconds move left one cell -->
 <!-- timings for hazards -->
 
@@ -38,3 +38,25 @@
 <!-- set up grid with styling from example (done) -->
 <!-- set up grid.div width height & border (done)-->
 <!-- style backgrounds -->
+
+
+
+<!-- function moveSharkRowOne(interval, row) {
+  sharkTimer = setInterval(() => {
+    removeShark(row);
+    if (row.includes(88)) {
+      //CHANGE THE STOP CRITERA! 
+      row = [86, 83, 80];
+    } else {
+      console.log(sharkRowOne);
+      row = row.map((element) => {
+        return (element += 1);
+      });
+    }
+
+    addShark(row);
+  }, interval);
+}
+moveSharkRowOne(1000, sharkRowOne); -->
+
+<!-- look at refactoring how impact is logged. currently you will only die if you move into shark -->
