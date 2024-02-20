@@ -1,20 +1,19 @@
-//variables for grid
+//-----------------VARIABLES FOR GRID-----------------//
 const grid = document.querySelector(".grid");
 const width = 10;
 const cellCount = width * width;
 const cells = [];
-
 let playerCurrentPosition = 34;
-//variables for objects do not move
+//-----------------VARIABLES FOR OBJECTS THAT DO NOT MOVE--------------//
 const lavaPositions = [40, 41, 42, 45, 46, 48, 49];
 const beachPositions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 const coralPositions = [90, 91, 92, 93, 94, 95, 96, 97, 98, 99];
-//variables for movable objects
+//---------------ARRAYS FOR MOVEABLE OBJECTS---------------------//
 let sharkRowOne = [86, 83, 80];
 let sharkRowTwo = [62, 65, 68];
 let sharkRowThree = [26, 23, 20];
 
-//function to create the grid(playing area)
+//----------------FUNCTION TO CREATE GRID----------------------//
 function createGrid() {
   for (let i = 0; i < cellCount; i++) {
     const cell = document.createElement("div");
@@ -33,15 +32,14 @@ function createGrid() {
 
 createGrid();
 
-//functions to add player & obsticals to the board
+//-----------------FUNCTIONS TO ADD & REMOVE PLAYER---------------------//
 function addPlayer(playerCurrentPosition) {
   cells[playerCurrentPosition].classList.add("player");
 }
-//function to remove player. this will give illusion of moving per cell
 function removePlayer(playerCurrentPosition) {
   cells[playerCurrentPosition].classList.remove("player");
 }
-//functions to add immovable objects
+//-------------------FUNCTIONS TO ADD IMMOVABLE OBJECTS-------------------//
 function addLava(lavaPositions) {
   for (let i = 0; i < lavaPositions.length; i++) {
     cells[lavaPositions[i]].classList.add("lava");
@@ -57,42 +55,46 @@ function addCoral(coralPositions) {
     cells[coralPositions[i]].classList.add("coral");
   }
 }
-//function to add movable objects
+//------------FUNCTIONS TO ADD SHARKS AND REMOVE SHARKS---------------------//
 function addShark(sharkRow) {
   for (let i = 0; i < sharkRow.length; i++) {
     cells[sharkRow[i]].classList.add("shark");
   }
 }
-
 function removeShark(sharkRow) {
   for (let i = 0; i < sharkRow.length; i++) {
     cells[sharkRow[i]].classList.remove("shark");
   }
 }
-// removeShark(sharkRowOne);
-//function to handle player or hazard entering the same cell
+
+//---------------FUNCTION TO HANDLE PLAYER AND OBJECT BEING IN THE SAME CELL-----//
 function impact() {
-  removePlayer(playerCurrentPosition);
-  playerCurrentPosition = 34;
-  addPlayer(playerCurrentPosition);
+  if (
+    (cells[playerCurrentPosition].classList.contains("player") &&
+      cells[playerCurrentPosition].classList.contains("shark")) ||
+    cells[playerCurrentPosition].classList.contains("lava")
+  ) {
+    removePlayer(playerCurrentPosition);
+    console.log("hit obsticle");
+    playerCurrentPosition = 34;
+    addPlayer(playerCurrentPosition);
+  }
 }
 
-// create a function that allows sharks to move across page
-// will need to make a set interval that moves the shark every x seconds
-// to move across the page, will need to increment -- or ++ to move to adjacent box
+//----------- FUNCTIONS TO MAKE SHARKS MOVE--------------------------------------//
 function moveSharkRowOne(interval) {
   sharkTimer = setInterval(() => {
     removeShark(sharkRowOne);
     if (sharkRowOne.includes(88)) {
       sharkRowOne = [86, 83, 80];
     } else {
-      console.log(sharkRowOne);
       sharkRowOne = sharkRowOne.map((element) => {
         return (element += 1);
       });
     }
 
     addShark(sharkRowOne);
+    impact();
   }, interval);
 }
 moveSharkRowOne(2000);
@@ -103,13 +105,13 @@ function moveSharkRowTwo(interval) {
     if (sharkRowTwo.includes(66)) {
       sharkRowTwo = [62, 65, 68];
     } else {
-      console.log(sharkRowTwo);
       sharkRowTwo = sharkRowTwo.map((element) => {
         return (element -= 1);
       });
     }
 
     addShark(sharkRowTwo);
+    impact();
   }, interval);
 }
 moveSharkRowTwo(1500);
@@ -120,18 +122,19 @@ function moveSharkRowThree(interval) {
     if (sharkRowThree.includes(28)) {
       sharkRowThree = [26, 23, 20];
     } else {
-      console.log(sharkRowThree);
       sharkRowThree = sharkRowThree.map((element) => {
         return (element += 1);
       });
     }
 
     addShark(sharkRowThree);
+    impact();
   }, interval);
 }
 moveSharkRowThree(1000);
+// -----------------------------------------------------------------------//
 
-//function to map player movment with keystrokes and create boundary around grid
+//-FUNCTION TO ALLOW PLAYER TO MOVE & OUTLINE BORDERS THAT PLAYER CAN MOVE WITHIN--//
 function handleKeyDown(event) {
   removePlayer(playerCurrentPosition);
   if (event.keyCode === 37 && playerCurrentPosition % width !== 0) {
@@ -151,15 +154,8 @@ function handleKeyDown(event) {
   }
   addPlayer(playerCurrentPosition);
   console.log(`player at position:${playerCurrentPosition}`);
-
-  if (cells[playerCurrentPosition].classList.contains("lava")) {
-    console.log("hit lava");
-    impact();
-  }
-  if (cells[playerCurrentPosition].classList.contains("shark")) {
-    console.log("hit shark");
-    impact();
-  }
+  impact();
 }
+// ----------------------------------------------------------------------//
 
 document.addEventListener("keydown", handleKeyDown);
