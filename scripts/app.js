@@ -3,15 +3,30 @@ const grid = document.querySelector(".grid");
 const width = 10;
 const cellCount = width * width;
 const cells = [];
-let playerCurrentPosition = 34;
+let playerCurrentPosition = 94;
 //-----------------VARIABLES FOR OBJECTS THAT DO NOT MOVE--------------//
-const lavaPositions = [40, 41, 42, 45, 46, 48, 49];
-const beachPositions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-const coralPositions = [90, 91, 92, 93, 94, 95, 96, 97, 98, 99];
+const lavaPositions = [
+  40, 41, 42, 45, 46, 48, 9, 19, 29, 39, 49, 59, 69, 79, 89, 99,
+];
+const beachPositions = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+const coralPositions = [90, 91, 92, 93, 94, 95, 96, 97, 98];
 //---------------ARRAYS FOR MOVEABLE OBJECTS---------------------//
 let sharkRowOne = [86, 83, 80];
 let sharkRowTwo = [62, 65, 68];
 let sharkRowThree = [26, 23, 20];
+// -------------TIMER VARIABLES--------------------------------//
+let sharkTimer = null;
+let sharkTimer2 = null;
+let sharkTimer3 = null;
+//--------------VARIABLES FOR LIVES AND SCORES-----------------//
+let playerScore = 0;
+let lives = 3;
+// ---------------------DOM GRABBERS----------------------//
+const scoreDisplay = document.getElementById("score");
+const livesDisplay = document.getElementById("lives");
+livesDisplay.innerText = 3;
+const startButton = document.getElementById("start");
+const resetButton = document.getElementById("reset");
 
 //----------------FUNCTION TO CREATE GRID----------------------//
 function createGrid() {
@@ -24,12 +39,11 @@ function createGrid() {
   addPlayer(playerCurrentPosition);
   addLava(lavaPositions);
   addBeach(beachPositions);
-  addCoral(coralPositions);
+  // addCoral(coralPositions);
   addShark(sharkRowOne);
   addShark(sharkRowTwo);
   addShark(sharkRowThree);
 }
-
 createGrid();
 
 //-----------------FUNCTIONS TO ADD & REMOVE PLAYER---------------------//
@@ -76,8 +90,13 @@ function impact() {
   ) {
     removePlayer(playerCurrentPosition);
     console.log("hit obsticle");
-    playerCurrentPosition = 34;
+    playerCurrentPosition = 94;
     addPlayer(playerCurrentPosition);
+    lives--;
+    livesDisplay.innerText = lives;
+  }
+  if (lives === 0) {
+    endGame();
   }
 }
 
@@ -92,15 +111,13 @@ function moveSharkRowOne(interval) {
         return (element += 1);
       });
     }
-
     addShark(sharkRowOne);
     impact();
   }, interval);
 }
-moveSharkRowOne(2000);
 
 function moveSharkRowTwo(interval) {
-  sharkTimer = setInterval(() => {
+  sharkTimer2 = setInterval(() => {
     removeShark(sharkRowTwo);
     if (sharkRowTwo.includes(66)) {
       sharkRowTwo = [62, 65, 68];
@@ -109,15 +126,13 @@ function moveSharkRowTwo(interval) {
         return (element -= 1);
       });
     }
-
     addShark(sharkRowTwo);
     impact();
   }, interval);
 }
-moveSharkRowTwo(1500);
 
 function moveSharkRowThree(interval) {
-  sharkTimer = setInterval(() => {
+  sharkTimer3 = setInterval(() => {
     removeShark(sharkRowThree);
     if (sharkRowThree.includes(28)) {
       sharkRowThree = [26, 23, 20];
@@ -126,14 +141,59 @@ function moveSharkRowThree(interval) {
         return (element += 1);
       });
     }
-
     addShark(sharkRowThree);
     impact();
   }, interval);
 }
-moveSharkRowThree(1000);
-// -----------------------------------------------------------------------//
 
+//------------------FUNCTION TO HANDLE SCORE -----------------------------//
+function handleScore(event) {
+  if (event.keyCode === 38) {
+    playerScore = playerScore + 100;
+    scoreDisplay.innerText = playerScore;
+  }
+}
+// ----------------FUNCTION TO STARTGAME-------------------------------//
+function startGame() {
+  moveSharkRowOne(2000);
+  moveSharkRowTwo(1500);
+  moveSharkRowThree(1000);
+}
+
+// ------------------FUNCTION TO END GAME-------------------------------//
+function endGame() {
+  clearInterval(sharkTimer);
+  clearInterval(sharkTimer2);
+  clearInterval(sharkTimer3);
+  removeShark(sharkRowOne);
+  removeShark(sharkRowTwo);
+  removeShark(sharkRowThree);
+  removePlayer(playerCurrentPosition);
+  console.log("End Game called");
+}
+// endButton = document.getElementById("sound");
+// endButton.addEventListener("click", endGame);
+// ------------------FUNCTION TO RESET GAME--------------------------//
+function resetGame() {
+  playerScore = 0;
+  scoreDisplay.textContent = playerScore;
+  lives = 3;
+  livesDisplay.textContent = lives;
+  removePlayer(playerCurrentPosition);
+  playerCurrentPosition = 94;
+  addPlayer(playerCurrentPosition);
+  startGame();
+}
+// -----------------FUNCTION TO WIN GAME-----------------------------//
+function winGame() {
+  clearInterval(sharkTimer);
+  clearInterval(sharkTimer2);
+  clearInterval(sharkTimer3);
+  removeShark(sharkRowOne);
+  removeShark(sharkRowTwo);
+  removeShark(sharkRowThree);
+  alert(`You Win. Your Score is ${playerScore}`);
+}
 //-FUNCTION TO ALLOW PLAYER TO MOVE & OUTLINE BORDERS THAT PLAYER CAN MOVE WITHIN--//
 function handleKeyDown(event) {
   removePlayer(playerCurrentPosition);
@@ -155,7 +215,13 @@ function handleKeyDown(event) {
   addPlayer(playerCurrentPosition);
   console.log(`player at position:${playerCurrentPosition}`);
   impact();
+  if (cells[playerCurrentPosition].classList.contains("beach")) {
+    winGame();
+  }
 }
-// ----------------------------------------------------------------------//
 
+// --------------------EVENT LISTENERS----------------------------------//
 document.addEventListener("keydown", handleKeyDown);
+document.addEventListener("keydown", handleScore);
+startButton.addEventListener("click", startGame);
+resetButton.addEventListener("click", resetGame);
