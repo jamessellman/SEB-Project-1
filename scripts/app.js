@@ -27,10 +27,12 @@ const livesDisplay = document.getElementById("lives");
 livesDisplay.innerText = 3;
 const startButton = document.getElementById("start");
 const resetButton = document.getElementById("reset");
+const restartButton = document.getElementById("restart");
 const highScoreDisplay = document.getElementById("highscore");
+let highScore = localStorage.getItem("high-score");
 
 //--------------VARIABLES FOR INTRO AND EXIT PAGES---------------//
-const introPage = document.getElementById("intro-page");
+// const introPage = document.getElementById("intro-page");
 
 //----------------FUNCTION TO CREATE GRID----------------------//
 function createGrid() {
@@ -162,10 +164,10 @@ function handleScore(event) {
 }
 // ----------------FUNCTION TO STARTGAME-------------------------------//
 function startGame() {
-  console.log("game started");
   moveSharkRowOne(1000);
   moveSharkRowTwo(750);
   moveSharkRowThree(500);
+  highScoreDisplay.innerText = highScore;
 }
 
 // ------------------FUNCTION TO END GAME-------------------------------//
@@ -177,14 +179,14 @@ function endGame() {
   removeShark(sharkRowTwo);
   removeShark(sharkRowThree);
   removePlayer(playerCurrentPosition);
+  loseModel();
   console.log("End Game called");
-  alert(
-    ` You lose! Your score was ${playerScore}. You cannot set a highscore if you do not reach safety!`
-  );
+  // alert(
+  //   ` You lose! Your score was ${playerScore}. You cannot set a highscore if you do not reach safety!`
+  // );
 }
 // ------------------FUNCTION TO RESET GAME--------------------------//
 function resetGame() {
-  console.log("game started reset button");
   playerScore = 0;
   scoreDisplay.textContent = playerScore;
   lives = 3;
@@ -193,6 +195,7 @@ function resetGame() {
   playerCurrentPosition = 94;
   addPlayer(playerCurrentPosition);
   startGame();
+  isPlaying = false;
 }
 // -----------------FUNCTION TO WIN GAME-----------------------------//
 function winGame() {
@@ -203,8 +206,10 @@ function winGame() {
   removeShark(sharkRowOne);
   removeShark(sharkRowTwo);
   removeShark(sharkRowThree);
+  winModel();
+  localStorage.getItem("high-score");
   if (playerScore > highScore) {
-    highlocalStorage.setItem("high-score", playerScore);
+    localStorage.setItem("high-score", playerScore);
   }
   if (highScore >= playerScore) {
     alert(
@@ -215,17 +220,41 @@ function winGame() {
   }
 }
 
-//--------------FUNCTION TO REMOVE INTRO SCREEN-------------------//
+//--------------FUNCTION FOR ADDING AND REMOVING OPENING MODAL-------------------//
 
-window.onload = () => {
-  document.getElementById("intro-page").hidden = false;
-  console.log("intro page load");
+const openingModal = document.getElementById("opening-modal");
+window.onload = function openModel() {
+  openingModal.style.display = "block";
 };
+function closeOpeningModal() {
+  openingModal.style.display = "none";
+}
+startButton.addEventListener("click", closeOpeningModal);
+// ------------FUNCTION TO ADD AND REMOVING LOSING MODAL-------------------------//
+let loseScore = document.getElementById("modal-lose-score");
+const loseModal = document.getElementById("lose-modal");
+function loseModel() {
+  loseModal.style.display = "block";
+  loseScore.innerText = ` You lose! Your score was ${playerScore}. You cannot set a highscore if you do not reach safety!`;
+}
+function closeLosingModal() {
+  loseModal.style.display = "none";
+  resetGame();
+}
+resetButton.addEventListener("click", closeLosingModal);
 
-document.getElementById("start").addEventListener("click", () => {
-  document.getElementById("intro-page").hidden = true;
-  console.log("start clicked intro page should remove");
-});
+//-----------FUNCTION TO ADD AND REMOVE WINNING MODAL----------------//
+const winScore = document.getElementById("modal-win-score");
+const winModal = document.getElementById("win-modal");
+function winModel() {
+  winModal.style.display = "block";
+  winScore.innerText = `You Win! Your score was ${playerScore} but the high score is ${highScore}`;
+}
+function closeWinModal() {
+  winModal.style.display = "none";
+  resetGame();
+}
+restartButton.addEventListener("click", closeWinModal);
 
 //-FUNCTION TO ALLOW PLAYER TO MOVE & OUTLINE BORDERS THAT PLAYER CAN MOVE WITHIN--//
 function handleKeyDown(event) {
@@ -257,4 +286,3 @@ function handleKeyDown(event) {
 document.addEventListener("keydown", handleKeyDown);
 document.addEventListener("keydown", handleScore);
 startButton.addEventListener("click", startGame);
-resetButton.addEventListener("click", resetGame);

@@ -16,18 +16,34 @@
       <p>Lives:<span id="lives"></span></p>
     </div>
     <!-- THIS WILL DISPLAY THE WELCOME MESSAGE THAT WILL CLEAR UPON CLICKING START GAME -->
-    <!-- <div id="intro-page">
-      <p>welcome</p>
-    </div> -->
+    <div id="opening-modal" style="display: none">
+      <div id="open-model-content">
+        <p>Can you swim through the open water to safety!</p>
+        <p>Watch out for the sharks and the lava pits</p>
+        <button id="start">Start Game!</button>
+      </div>
+    </div>
     <!-- GAME GRID. THE INDIVIDUAL CELLS ARE GENERATED IN JAVASCRIPT  -->
     <div class="grid-wrapper">
       <div class="grid"></div>
     </div>
+    <!-- THIS WILL DISPLAY THE CLOSING MESSAGE IF PLAYER LOSES -->
+    <div id="lose-modal" style="display: none">
+      <div id="lose-modal-content">
+        <p>You lose!<span id="modal-lose-score"></span></p>
+        <button id="reset">Reset game</button>
+      </div>
+    </div>
+    <!-- THIS WILL DISPLAY THE CLOSING MESSAGE IF PLAYER WINS -->
+    <div id="win-modal" style="display: none">
+      <div id="win-modal-content">
+        <p>You win. Your score is:<span id="modal-win-score"></span></p>
+        <button id="restart">Reset game</button>
+      </div>
+    </div>
 
     <div class="buttons-container">
       <button id="sound">Toggle Sound</button>
-      <button id="reset">Reset game</button>
-      <button id="start">Start Game!</button>
     </div>
   </body>
 </html>
