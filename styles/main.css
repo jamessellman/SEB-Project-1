@@ -8,7 +8,7 @@ body {
     margin: 0;
 }
 .grid-wrapper {
-    height: 100vh;
+    height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,10 +36,15 @@ body {
 
 h1 {
     border: 1px solid red;
+    text-align: center;
 }
 
 .display-containter {
+    width: 600px;
     border: 1px solid red;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
 }
 
 .buttons-container {
@@ -77,4 +82,12 @@ h1 {
     background-repeat: no-repeat;
     background-size: contain;
     cursor: pointer;
+}
+
+#intro-page {
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
 }

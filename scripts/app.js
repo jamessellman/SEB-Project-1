@@ -27,6 +27,10 @@ const livesDisplay = document.getElementById("lives");
 livesDisplay.innerText = 3;
 const startButton = document.getElementById("start");
 const resetButton = document.getElementById("reset");
+const highScoreDisplay = document.getElementById("highscore");
+
+//--------------VARIABLES FOR INTRO AND EXIT PAGES---------------//
+const introPage = document.getElementById("intro-page");
 
 //----------------FUNCTION TO CREATE GRID----------------------//
 function createGrid() {
@@ -45,7 +49,6 @@ function createGrid() {
   addShark(sharkRowThree);
 }
 createGrid();
-
 //-----------------FUNCTIONS TO ADD & REMOVE PLAYER---------------------//
 function addPlayer(playerCurrentPosition) {
   cells[playerCurrentPosition].classList.add("player");
@@ -152,12 +155,17 @@ function handleScore(event) {
     playerScore = playerScore + 100;
     scoreDisplay.innerText = playerScore;
   }
+  if (event.keyCode == 40) {
+    playerScore = playerScore - 100;
+    scoreDisplay.innerText = playerScore;
+  }
 }
 // ----------------FUNCTION TO STARTGAME-------------------------------//
 function startGame() {
-  moveSharkRowOne(2000);
-  moveSharkRowTwo(1500);
-  moveSharkRowThree(1000);
+  console.log("game started");
+  moveSharkRowOne(1000);
+  moveSharkRowTwo(750);
+  moveSharkRowThree(500);
 }
 
 // ------------------FUNCTION TO END GAME-------------------------------//
@@ -170,11 +178,13 @@ function endGame() {
   removeShark(sharkRowThree);
   removePlayer(playerCurrentPosition);
   console.log("End Game called");
+  alert(
+    ` You lose! Your score was ${playerScore}. You cannot set a highscore if you do not reach safety!`
+  );
 }
-// endButton = document.getElementById("sound");
-// endButton.addEventListener("click", endGame);
 // ------------------FUNCTION TO RESET GAME--------------------------//
 function resetGame() {
+  console.log("game started reset button");
   playerScore = 0;
   scoreDisplay.textContent = playerScore;
   lives = 3;
@@ -186,14 +196,37 @@ function resetGame() {
 }
 // -----------------FUNCTION TO WIN GAME-----------------------------//
 function winGame() {
+  removePlayer(playerCurrentPosition);
   clearInterval(sharkTimer);
   clearInterval(sharkTimer2);
   clearInterval(sharkTimer3);
   removeShark(sharkRowOne);
   removeShark(sharkRowTwo);
   removeShark(sharkRowThree);
-  alert(`You Win. Your Score is ${playerScore}`);
+  if (playerScore > highScore) {
+    highlocalStorage.setItem("high-score", playerScore);
+  }
+  if (highScore >= playerScore) {
+    alert(
+      `You Win! Your score was ${playerScore} but the high score is ${highScore}`
+    );
+  } else {
+    alert(`You Win! New high score ${playerScore}`);
+  }
 }
+
+//--------------FUNCTION TO REMOVE INTRO SCREEN-------------------//
+
+window.onload = () => {
+  document.getElementById("intro-page").hidden = false;
+  console.log("intro page load");
+};
+
+document.getElementById("start").addEventListener("click", () => {
+  document.getElementById("intro-page").hidden = true;
+  console.log("start clicked intro page should remove");
+});
+
 //-FUNCTION TO ALLOW PLAYER TO MOVE & OUTLINE BORDERS THAT PLAYER CAN MOVE WITHIN--//
 function handleKeyDown(event) {
   removePlayer(playerCurrentPosition);
