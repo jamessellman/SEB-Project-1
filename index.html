@@ -6,9 +6,15 @@
     <title>Frogger</title>
     <link rel="stylesheet" href="./styles/main.css" />
     <script defer src="./scripts/app.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>FROGGER</h1>
+    <h1>SHARKER</h1>
     <!-- PLAYER INFORMATION -->
     <div class="display-containter">
       <p>Score:<span id="score"></span></p>
@@ -18,7 +24,9 @@
     <!-- THIS WILL DISPLAY THE WELCOME MESSAGE THAT WILL CLEAR UPON CLICKING START GAME -->
     <div id="opening-modal" style="display: none">
       <div id="open-model-content">
+        <h1>SHARKER</h1>
         <p>Can you swim through the open water to safety!</p>
+        <p>Use the navigation keys to maneuver around the board</p>
         <p>Watch out for the sharks and the lava pits</p>
         <button id="start">Start Game!</button>
       </div>
