@@ -142,50 +142,6 @@
 //   }, interval);
 // }
 
-// // function moveSharkRowTwo(interval) {
-// //   sharkTimer2 = setInterval(() => {
-// //     removeShark(sharkRowTwo);
-// //     if (sharkRowTwo.includes(54)) {
-// //       sharkRowTwo = [56, 59, 62];
-// //     } else {
-// //       sharkRowTwo = sharkRowTwo.map((element) => {
-// //         return (element -= 1);
-// //       });
-// //     }
-// //     addShark(sharkRowTwo);
-// //     impact();
-// //   }, interval);
-// // }
-
-// // function moveSharkRowThree(interval) {
-// //   sharkTimer3 = setInterval(() => {
-// //     removeShark(sharkRowThree);
-// //     if (sharkRowThree.includes(35)) {
-// //       sharkRowThree = [27, 30, 33];
-// //     } else {
-// //       sharkRowThree = sharkRowThree.map((element) => {
-// //         return (element += 1);
-// //       });
-// //     }
-// //     addShark(sharkRowThree);
-// //     impact();
-// //   }, interval);
-// // }
-// // function moveSharkRowFour(interval) {
-// //   sharkTimer4 = setInterval(() => {
-// //     removeShark(sharkRowFour);
-// //     if (sharkRowFour.includes(17)) {
-// //       sharkRowFour = [9, 12, 15];
-// //     } else {
-// //       sharkRowFour = sharkRowFour.map((element) => {
-// //         return (element += 1);
-// //       });
-// //     }
-// //     addShark(sharkRowFour);
-// //     impact();
-// //   }, interval);
-// // }
-
 // //------------------FUNCTION TO HANDLE SCORE -----------------------------//
 // function handleScore(event) {
 //   if (event.keyCode === 38) {
