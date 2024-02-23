@@ -7,7 +7,6 @@ let playerCurrentPosition = 85;
 //-----------------VARIABLES FOR OBJECTS THAT DO NOT MOVE--------------//
 const lavaPositions = [36, 37, 39, 40, 41, 43, 44, 63, 65, 67, 69, 71];
 const beachPositions = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-const coralPositions = [81, 82, 83, 84, 85, 86, 87, 88, 89];
 //---------------OBJECT FOR MOVEABLE OBJECTS---------------------//
 
 let sharkRowOne = {
@@ -33,9 +32,9 @@ let sharkRowFour = {
 
 // -------------TIMER VARIABLES--------------------------------//
 let sharkTimer = null;
-let sharkTimer2 = null;
-let sharkTimer3 = null;
-let sharkTimer4 = null;
+// let sharkTimer2 = null;
+// let sharkTimer3 = null;
+// let sharkTimer4 = null;
 //--------------VARIABLES FOR LIVES AND SCORES-----------------//
 let playerScore = 0;
 let lives = 3;
@@ -56,14 +55,13 @@ let highScore = localStorage.getItem("high-score");
 function createGrid() {
   for (let i = 0; i < cellCount; i++) {
     const cell = document.createElement("div");
-    // cell.innerText = i;
+    cell.innerText = i;
     grid.appendChild(cell);
     cells.push(cell);
   }
   addPlayer(playerCurrentPosition);
   addLava(lavaPositions);
   addBeach(beachPositions);
-  // addCoral(coralPositions);
   addShark(sharkRowOne.start);
   addShark(sharkRowTwo.start);
   addShark(sharkRowThree.start);
@@ -88,20 +86,17 @@ function addBeach(beachPositions) {
     cells[beachPositions[i]].classList.add("beach");
   }
 }
-function addCoral(coralPositions) {
-  for (let i = 0; i < coralPositions.length; i++) {
-    cells[coralPositions[i]].classList.add("coral");
-  }
-}
 //------------FUNCTIONS TO ADD SHARKS AND REMOVE SHARKS---------------------//
 function addShark(sharkRow) {
   for (let i = 0; i < sharkRow.length; i++) {
     cells[sharkRow[i]].classList.add("shark");
+    console.log("addShark");
   }
 }
 function removeShark(sharkRow) {
   for (let i = 0; i < sharkRow.length; i++) {
     cells[sharkRow[i]].classList.remove("shark");
+    console.log("removeShark");
   }
 }
 
@@ -119,7 +114,9 @@ function impact() {
     lives--;
     livesDisplay.innerText = lives;
   }
-  if (lives === 0) {
+  if (!lives) {
+    removePlayer(playerCurrentPosition);
+    console.log("impact");
     endGame();
   }
 }
@@ -131,7 +128,7 @@ function moveSharkRow(interval, sharkRow) {
     if (sharkRow.current.includes(sharkRow.end)) {
       sharkRow.current = sharkRow.start;
     } else {
-      console.log(sharkRow);
+      // console.log(sharkRow);
       sharkRow.current = sharkRow.current.map((element) => {
         return (element += 1);
       });
@@ -206,21 +203,22 @@ function startGame() {
   // moveSharkRowTwo(750);
   // moveSharkRowThree(500);
   // moveSharkRowFour(250);
+
   highScoreDisplay.innerText = highScore;
 }
 
 // ------------------FUNCTION TO END GAME-------------------------------//
 function endGame() {
   clearInterval(sharkTimer);
-  clearInterval(sharkTimer2);
-  clearInterval(sharkTimer3);
-  clearInterval(sharkTimer4);
-  removeShark(sharkRowOne);
-  removeShark(sharkRowTwo);
-  removeShark(sharkRowThree);
-  removeShark(sharkRowFour);
+  // clearInterval(sharkTimer2);
+  // clearInterval(sharkTimer3);
+  // clearInterval(sharkTimer4);
+  removeShark(sharkRowOne.current);
+  removeShark(sharkRowTwo.current);
+  removeShark(sharkRowThree.current);
+  removeShark(sharkRowFour.current);
   removePlayer(playerCurrentPosition);
-  loseModel();
+  // loseModel();
   console.log("End Game called");
   // alert(
   //   ` You lose! Your score was ${playerScore}. You cannot set a highscore if you do not reach safety!`
@@ -242,14 +240,15 @@ function resetGame() {
 function winGame() {
   removePlayer(playerCurrentPosition);
   clearInterval(sharkTimer);
-  clearInterval(sharkTimer2);
-  clearInterval(sharkTimer3);
-  clearInterval(sharkTimer4);
-  removeShark(sharkRowOne);
-  removeShark(sharkRowTwo);
-  removeShark(sharkRowThree);
-  removeShark(sharkRowFour);
-  winModel();
+  // clearInterval(sharkTimer2);
+  // clearInterval(sharkTimer3);
+  // clearInterval(sharkTimer4);
+  removeShark(sharkRowOne.current);
+  removeShark(sharkRowTwo.current);
+  removeShark(sharkRowThree.current);
+  removeShark(sharkRowFour.current);
+  console.log("win game called");
+
   localStorage.getItem("high-score");
   if (playerScore > highScore) {
     localStorage.setItem("high-score", playerScore);

@@ -135,6 +135,8 @@ p {
     border-radius: 20px;
     color: white;
     padding: 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
     background-image: url("../images/businessman-under-shark-attack--jaws.jpg");
 }
 
