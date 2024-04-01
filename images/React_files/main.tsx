@@ -1,0 +1,12 @@
+var _jsxFileName = "/Users/jamiesellman/Desktop/SEB-78-LABS/cheesebored-lab/src/main.tsx";
+import __vite__cjsImport0_reactDom_client from "/node_modules/.vite/deps/react-dom_client.js?v=e1ad7f2b"; const ReactDOM = __vite__cjsImport0_reactDom_client.__esModule ? __vite__cjsImport0_reactDom_client.default : __vite__cjsImport0_reactDom_client;
+import "/src/styles/main.scss";
+import App from "/src/App.tsx?t=1709565686276";
+import { jsxDEV as _jsxDEV } from "/@id/__x00__react/jsx-dev-runtime";
+ReactDOM.createRoot(document.getElementById("root")).render(/* @__PURE__ */ _jsxDEV(App, {}, void 0, false, {
+  fileName: _jsxFileName,
+  lineNumber: 7,
+  columnNumber: 3
+}, this));
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IjtBQUNBLE9BQU9BLGNBQWM7QUFDckIsT0FBTztBQUNQLE9BQU9DLFNBQVM7QUFBTztBQUV2QkQsU0FBU0UsV0FBV0MsU0FBU0MsZUFBZSxNQUFNLENBQWdCLEVBQUVDLE9BQ2xFLHdCQUFDLEtBQUc7QUFBQTtBQUFBO0FBQUE7QUFBQSxRQUFHIiwibmFtZXMiOlsiUmVhY3RET00iLCJBcHAiLCJjcmVhdGVSb290IiwiZG9jdW1lbnQiLCJnZXRFbGVtZW50QnlJZCIsInJlbmRlciJdLCJzb3VyY2VzIjpbIi9Vc2Vycy9qYW1pZXNlbGxtYW4vRGVza3RvcC9TRUItNzgtTEFCUy9jaGVlc2Vib3JlZC1sYWIvc3JjL21haW4udHN4Il0sImZpbGUiOiIvVXNlcnMvamFtaWVzZWxsbWFuL0Rlc2t0b3AvU0VCLTc4LUxBQlMvY2hlZXNlYm9yZWQtbGFiL3NyYy9tYWluLnRzeCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tIFwicmVhY3RcIlxuaW1wb3J0IFJlYWN0RE9NIGZyb20gXCJyZWFjdC1kb20vY2xpZW50XCJcbmltcG9ydCBcIi4vc3R5bGVzL21haW4uc2Nzc1wiXG5pbXBvcnQgQXBwIGZyb20gXCIuL0FwcFwiXG5cblJlYWN0RE9NLmNyZWF0ZVJvb3QoZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3Jvb3QnKSBhcyBIVE1MRWxlbWVudCkucmVuZGVyKFxuICA8QXBwIC8+XG4pXG4iXX0=
